@@ -22,7 +22,7 @@ def loadvectors(fname, length=None, filter=None):
             if word in word2vec:
                 print("duplicate word '%s' in %s, ignoring all but first", word, fname)
                 return
-            #print("add_word", word, word_id)
+            print("add_word", word, word_id)
             table[word_id] = weights
             word2vec[word] = word_id
             vec2word[word_id] = word
