@@ -40,7 +40,7 @@ def loadvectors(fname, length=None, filter=None):
                     break
                 if ch != b'\n':
                     word.append(ch)
-            word = ''.join(word)
+            word = b''.join(word)
             if filter is None or word in filter:
                 weights = fromstring(fin.read(binary_len), dtype=float32)
                 if (len(weights) < 300):
