@@ -3,7 +3,7 @@ import sys
 import numpy
 
 if __name__ == "__main__":
-    vectorfile = "data/part1"
+    vectorfile = "data/GoogleNews-vectors-negative300.bin"
     wordfile = "data/questions-words.txt"
     words = loadAnalogyTerms(wordfile)
     print(words)
