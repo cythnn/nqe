@@ -1,11 +1,13 @@
 import struct
+
+import fcntl, os
 from numpy import zeros, float32, int32, dtype, fromstring
 from tools.types cimport *
 from numpy cimport *
 from tools.blas cimport saxpy, scopy, snrm2
 
 def loadvectors(fname, length=None, filter=None):
-    print("loadvectors")
+    #print("loadvectors")
     with open(fname, "rb") as fin:
         header = fin.readline()
         vocab_size, vector_size = map(int, header.split())
@@ -14,11 +16,13 @@ def loadvectors(fname, length=None, filter=None):
         table = zeros((vocab_size, vector_size), dtype=float32)
 
         def add_word(word, weights):
+            if len(word2vec) % 100 == 0:
+                print("words", len(word2vec))
             word_id = len(word2vec)
             if word in word2vec:
                 print("duplicate word '%s' in %s, ignoring all but first", word, fname)
                 return
-            print("add_word", word, word_id)
+            #print("add_word", word, word_id)
             table[word_id] = weights
             word2vec[word] = word_id
             vec2word[word_id] = word
@@ -39,7 +43,6 @@ def loadvectors(fname, length=None, filter=None):
             word = b''.join(word)
             print(word)
             if filter is None or word in filter:
-                print("aap")
                 weights = fromstring(fin.read(binary_len), dtype=float32)
                 if (len(weights) < 300):
                     break
