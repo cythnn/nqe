@@ -7,6 +7,7 @@ import numpy as np
 ext_modules = [
     Extension("imdb.ParagraphVector", ["imdb/ParagraphVector.pyx"]),
     Extension("nqe.findmax", ["nqe/findmax.pyx"]),
+    Extension("nqe.kmeans", ["nqe/kmeans.pyx"]),
 ]
 
 setup(

@@ -22,7 +22,7 @@ def loadvectors(fname, length=None, filter=None):
             if word in word2vec:
                 print("duplicate word '%s' in %s, ignoring all but first", word, fname)
                 return
-            print("add_word", word, word_id)
+            #print("add_word", word, word_id)
             table[word_id] = weights
             word2vec[word] = word_id
             vec2word[word_id] = word
@@ -40,15 +40,16 @@ def loadvectors(fname, length=None, filter=None):
                     break
                 if ch != b'\n':
                     word.append(ch)
-            word = (b''.join(word)).decode(encoding="UTF-8")
-            if filter is None or word.lower() in filter:
-                weights = fromstring(fin.read(binary_len), dtype=float32)
-                if (len(weights) < 300):
-                    print("too small")
-                    break
-                add_word(word, weights)
-            else:
-                fin.read(binary_len)
+            if (success):
+                word = (b''.join(word)).decode(encoding="UTF-8")
+                if filter is None or word.lower() in filter:
+                    weights = fromstring(fin.read(binary_len), dtype=float32)
+                    if (len(weights) < 300):
+                        print("too small")
+                        break
+                    add_word(word, weights)
+                else:
+                    fin.read(binary_len)
         table.resize((len(word2vec), vector_size))
     return table, word2vec, vec2word
 
